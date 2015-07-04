@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Admin_Header.cshtml";
+    Session["Page"] = "Dashboard";
+}
+
+@using METRO.Models;
+
+@{
+    List<product> topLiked = (List<product>)ViewBag.topLiked;
+    List<product> topSell = (List<product>)ViewBag.topSell;
+    List<customer> topUser = (List<customer>)ViewBag.topUser;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+
+    <div class="ch-container">
+        <div class="row">
+
+
+            <div id="content" class="col-lg-10 col-sm-10">
+                <!-- content starts -->
+                <div>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/Admin/Dashboard">Home</a>
+                        </li>
+                        <li>
+                            <a href="/Admin/Dashboard">Dashboard</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class=" row">
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <a data-toggle="tooltip" title="6 new members." class="well top-block" href="#">
+                            <i class="glyphicon glyphicon-user blue"></i>
+
+                            <div>Total Members</div>
+                            <div>@ViewBag.tm</div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <a data-toggle="tooltip" title="4 new pro members." class="well top-block" href="#">
+                            <i class="glyphicon glyphicon-inbox green"></i>
+
+                            <div>Total Products</div>
+                            <div>@ViewBag.tp</div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <a data-toggle="tooltip" title="$34 new sales." class="well top-block" href="#">
+                            <i class="glyphicon glyphicon-list yellow"></i>
+                            <div>Total Catagories</div>
+                            <div>@ViewBag.tc</div>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                        <a data-toggle="tooltip" title="$34 new sales." class="well top-block" href="#">
+                            <i class="glyphicon glyphicon-comment white"></i>
+                            <div>Total Comments</div>
+                            <div>@ViewBag.cm</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            @{
+
+                
+                    <div id="content" class="col-lg-10 col-sm-10">
+                        @if (topUser.Count > 0 && topUser != null)
+                        {
+                            <div class="box col-md-3">
+                                <div class="box-inner">
+                                    <div class="box-header well" data-original-title="">
+                                        <h2><i class="glyphicon glyphicon-list"></i>Top Users</h2>
+                                    </div>
+                                    <div class="box-content">
+                                        <ul class="dashboard-list">
+                                            @for (int i = 0; i < topUser.Count(); i++)
+                                            {
+                                                <li>
+                                                    <a href="/Admin/UserView?id=@topUser.ElementAt(i).customer_id">
+                                                        <i class="glyphicon glyphicon-user"></i>
+                                                        <span class="green">@topUser.ElementAt(i).customer_count</span>
+                                                        @topUser.ElementAt(i).customer_firstname
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (topLiked.Count > 0 && topLiked != null)
+                        {
+                            <div class="box col-md-3">
+                                <div class="box-inner">
+                                    <div class="box-header well" data-original-title="">
+                                        <h2><i class="glyphicon glyphicon-list"></i>Most Liked</h2>
+                                    </div>
+                                    <div class="box-content">
+                                        <ul class="dashboard-list">
+                                            @for (int i = 0; i < topLiked.Count(); i++)
+                                            {
+                                                <li>
+                                                    <a href="/Product/Index?id=@topLiked.ElementAt(i).product_id">
+                                                        <i class="glyphicon glyphicon-inbox"></i>
+                                                        <span class="green">@topLiked.ElementAt(i).likes_no</span>
+                                                        @topLiked.ElementAt(i).product_name
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (topSell.Count > 0 && topSell != null)
+                        {
+                            <div class="box col-md-3">
+                                <div class="box-inner">
+                                    <div class="box-header well" data-original-title="">
+                                        <h2><i class="glyphicon glyphicon-list"></i>Most Sold</h2>
+                                    </div>
+                                    <div class="box-content">
+                                        <ul class="dashboard-list">
+                                            @for (int i = 0; i < topSell.Count(); i++)
+                                            {
+                                                <li>
+                                                    <a href="/Product/Index?id=@topLiked.ElementAt(i).product_id">
+                                                        <i class="glyphicon glyphicon-inbox"></i>
+                                                        <span class="green">@topSell.ElementAt(i).sales</span>
+                                                        @topSell.ElementAt(i).product_name
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>             
+            }
+        </div>
+        <br />
+    </div>
+</body>
+
+</html>
